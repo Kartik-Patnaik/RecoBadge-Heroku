@@ -192,7 +192,7 @@ def data():
         final_badge = final_badge.sort_values(by = ["Requestor GPN","Final_Rank"])
         final_badge = final_badge.drop(["Prob Score","Key_Badge_SD","tot_dist","Distance","Sim with","Relative_Wt","prob_sort"],axis = 1)
         data = final_badge
-        return render_template('data.html',data=data.to_html())
+        return render_template('data.html',debug = True,data=data.to_html())
 
 if __name__ == '__main__':
    app.run("0.0.0.0",threaded=False)
