@@ -5,8 +5,15 @@ RecoBadge – An AI based badge recommendation engine based on historical badge 
 2.Increase interest level among employees to complete badges by recommending right set of badges based on business relevance and their learning experience
 
 procfile: is the app generation file for HEROKU
+
 requirements.txt is the modules required to run it in server
+
+templates: the html template for the web UI
+
 app.py: is the application file to run in server
+
 badge1.py: The the Neural Network file
+
 encoder.pkl,nnclassifier.pkl,root_data.pkl,saved_data.pkl and scaler.pkl are the pickle file generated from the neural network and few are saved as cache by us to add intelligence.
+
 
