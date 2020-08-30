@@ -20,6 +20,8 @@ from scipy.spatial.distance import squareform
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import LabelEncoder
 
+cwd = os.getcwd()
+files = os.listdir(cwd)
 app = Flask(__name__)
 @app.route('/',methods = ['GET', 'POST'])
 def upload_file():
