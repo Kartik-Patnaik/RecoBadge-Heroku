@@ -14,7 +14,6 @@ from keras.layers import Dropout
 from flask import Flask, render_template, request
 import pandas as pd
 import pickle
-import tensorflow_core.keras
 from sklearn.preprocessing import StandardScaler
 from scipy.spatial.distance import pdist
 from scipy.spatial.distance import squareform
