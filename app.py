@@ -195,4 +195,4 @@ def data():
         return render_template('data.html',data=data.to_html())
 
 if __name__ == '__main__':
-   app.run("0.0.0.0",debug = True,threaded=False)
+   app.run("0.0.0.0",threaded=False)
