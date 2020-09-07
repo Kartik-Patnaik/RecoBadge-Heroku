@@ -1,8 +1,231 @@
-<h1 color=orange>RecoBadge</h1>
-<body background="https://miro.medium.com/max/1800/1*kCuNL07RRQvPWiiaTpWARg.gif" >
-<div style="background-image: url('img_girl.jpg');">
-<form class="" action="data" method="post">
-  <label><input type="file" name="csvfile" value=""></div>
-  <label><input type="submit" name="" value="submit"></div>
-</<form class="" action="index.html" method="post">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecoBadge 3L</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <style media="screen">
+    :root {
+        --btn-background: #46467e;
+    }
+
+    body {
+        width: 100%;
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+    }
+
+    .header {
+        padding: 1rem 2rem;
+        height: 10vh;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        width: 40px;
+        height: auto;
+    }
+
+    .title {
+        font-weight: 600;
+        font-size: 1.5em;
+    }
+
+    .content {
+        background: url("https://www.biospectrumasia.com/uploads/articles/industrial_robotics_ai_machine_learning-11384.jpeg");
+        height: 90vh;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        padding: 7rem 2rem;
+    }
+
+    .transparent-container {
+        border-radius: 6px;
+        background-color: #ffffff60;
+        padding: 1rem;
+        width: 50vw;
+        max-width: 550px;
+    }
+
+    .form-container {
+        background-color: #ffffff;
+        padding: 1rem;
+        border-radius: 6px;
+    }
+
+    .form-container .row {
+        padding-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    .heading {
+        padding: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+        border-bottom: 1px dashed #cdcdcd;
+        margin-bottom: 1.5rem;
+    }
+
+    .label {
+        color: #5b6166;
+        font-size: 0.9em;
+        font-weight: 400;
+        text-align: left;
+    }
+
+    .file-input {
+        text-align: center;
+        text-align: left;
+        background: #fff;
+        position: relative;
+        border-radius: 0.25rem;
+        border: 1.5px dashed #c8c8c8;
+    }
+
+    .file-input > [type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .file-input > .button {
+        display: inline-block;
+        cursor: pointer;
+        background: var(--btn-background);
+        padding: 8px 16px;
+        border-radius: 0.25rem;
+        margin-right: 8px;
+        color: white;
+        font-size: 0.8em;
+    }
+
+    .file-input:hover > .button {
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+        background-color: #46467e;
+    }
+
+    .file-input > .label {
+        font-size: 0.8em;
+        color: #b0b0b0;
+    }
+
+    .file-input > .label.-chosen {
+        opacity: 1;
+    }
+
+    input[type="submit"] {
+        background: #ffa500;
+        color: white;
+        font-size: 0.85em;
+        border: none;
+        padding: 0.4em 1.8em;
+        font-weight: 500;
+        box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/EY_logo_2019.svg/330px-EY_logo_2019.svg.png" alt="" class="logo">
+            </div>
+            <div class="col-sm-8 text-center">
+                <div class="title">
+                    RecoBadge 3L
+                </div>
+                <div class="sub-title">
+                    An AI Based Recommendation System
+                </div>
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="transparent-container">
+            <form action="data" method="post" name="form1">
+                <div class="form-container">
+                    <div class="heading">Input Files</div>
+                    <div class="row">
+                        <div class="col-sm-4 label">
+                            Badge Data
+                        </div>
+                        <div class="col-sm-8">
+                            <div class='file-input'>
+                                <input type="file" name="csvfile" />
+                                <span class='button'>Choose</span>
+                                <span class='label' id="lblBadgeData">Select file</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 label">
+                            LEAD Data
+                        </div>
+                        <div class="col-sm-8">
+                            <div class='file-input'>
+                                <input type="file" name="leadCSVfile" />
+                                <span class='button'>Choose</span>
+                                <span class='label' id="lblleadData">Select file</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 label">
+                            Employee Data
+                        </div>
+                        <div class="col-sm-8">
+                            <div class='file-input'>
+                                <input type="file" name="employeeCSVfile" />
+                                <span class='button'>Choose</span>
+                                <span class='label' id="lblEmployeeDetails">Select file</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-offset-4 col-sm-8">
+                            <input type="submit" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('input[name="csvfile"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#lblBadgeData').html(fileName);
+            });
+            $('input[name="leadCSVfile"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#lblleadData').html(fileName);
+            });
+            $('input[name="employeeCSVfile"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                $('#lblEmployeeDetails').html(fileName);
+            });
+        });
+    </script>
+</body>
+
+</html>
