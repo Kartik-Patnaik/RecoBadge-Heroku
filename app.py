@@ -14,6 +14,7 @@ from keras.layers import Dropout
 from flask import Flask, render_template, request
 import pandas as pd
 import pickle
+import tensorflow_core.keras
 from sklearn.preprocessing import StandardScaler
 from scipy.spatial.distance import pdist
 from scipy.spatial.distance import squareform
@@ -29,7 +30,7 @@ def data():
     if request.method=="POST":
         f = request.form['csvfile']
         data = pd.read_csv(f)
-        dataset = data.drop(["EmployeeStatusDesc","Domain","Sub Domain","Badge Type","Badge Status","Key-Badge_SD","Badge earned","Initiate a badge date","Time Lapse","Badge Classification"],axis = 1)
+        dataset = data.drop(["EmployeeStatusDesc","Domain","Sub Domain","Badge Type","Badge Status","Key-Badge_SD","Badge earned","Initiate a badge date","Time Lapse","Badge Classification"],axis = 1,errors='ignore')
         X = dataset.iloc[:, 1:4]
         #Create dummy variables
         Country=pd.get_dummies(X['Country'])
@@ -186,11 +187,19 @@ def data():
         badge_wt_final["Relative_Wt"] = badge_wt_final["Distance"]/badge_wt_final["tot_dist"]
         final_badge = pd.merge(GPN_Reco_5,badge_wt_final,on = "Key_Badge_SD", how = 'left')
         final_badge["prob_sort"] = final_badge["Prob Score"]*final_badge["Relative_Wt"]
+        final_badge=final_badge.sort_values(['Requestor GPN','prob_sort'], ascending=False).reset_index(drop = True)
         final_badge = final_badge.drop_duplicates(['Requestor GPN','Sub_Domain'], keep='first')
         final_badge['Final_Rank'] = final_badge.groupby('Requestor GPN')['prob_sort'].rank(ascending=False)
         final_badge = final_badge[final_badge['Final_Rank']<6]
         final_badge = final_badge.sort_values(by = ["Requestor GPN","Final_Rank"])
         final_badge = final_badge.drop(["Prob Score","Key_Badge_SD","tot_dist","Distance","Sim with","Relative_Wt","prob_sort"],axis = 1)
+        final_badge["Recommendation"] = final_badge['Sub_Domain']+"-"+final_badge['Badge']
+        final_badge = final_badge.drop(["Domain","Sub_Domain","Badge","Final_Rank"],axis = 1)
+        final_badge['idx'] = final_badge.groupby('Requestor GPN').cumcount()
+        final_badge['idx'] = final_badge['idx']+1
+        final_badge['GPN'] = 'Recommendation ' + final_badge.idx.astype(str)
+        final_badge =final_badge.pivot(index='Requestor GPN',columns='GPN',values='Recommendation')
+        del final_badge.index.name
         data = final_badge
         return render_template('data.html',data=data.to_html())
 
